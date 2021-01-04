@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sticky-footer/">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Set the fixed height of the footer here */
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">System of runs reservation</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">List of all runs<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/run/add/">Add your run</a>
+        </div>
+    </div>
+</nav>
+<!-- Nav -->
+
+<!-- table -->
+<table class="table">
+    <thead>
+    <tr class="d-flex">
+{#        <th scope="col" class="col-1">#</th>#}
+{#        <th scope="col" class="col-2">Name</th>#}
+{#        <th scope="col" class="col-1">City</th>#}
+{#        <th scope="col" class="col-2">Distance</th>#}
+{#        <th scope="col" class="col-1">Open registration</th>#}
+{#        <th scope="col" class="col-2">Term</th>#}
+        <th scope="col" class="col-1">#</th>
+        <th scope="col" class="col-2">Name</th>
+        <th scope="col" class="col-1">City</th>
+        <th scope="col" class="col-1">Distance</th>
+        <th scope="col" class="col-2">Open registration</th>
+        <th scope="col" class="col-2">Term</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for run in runs_list %}
+        <tr class="d-flex">
+            <th scope="row" class="col-1">{{ run.id }}</th>
+            <td class="col-2">
+                <a href='/details/{{ run.id }}/'>{{ run.name }}</a>
+            </td>
+            <td class="col-1">
+                {{ run.city }}
+            </td>
+            <td class="col-1">
+                <a href="/run/{{ run.id }}/">{{ run.distance }}</a>
+            </td>
+            <td class="col-2">{{ run.registration }}</td>
+{#            {% if run.registration is True %}#}
+{#                <td class="col-2" style="color:green;">Open</td>#}
+{#            {% else %}#}
+{#                <td class="col-2" style="color:red;">Closed</td>#}
+{#            {% endif %}#}
+
+            <td class="col-2">
+                <a href="/run/{{ run.id }}/">{{ run.term }}</a>
+            </td>
+            <td class="col-1">
+                <a href="/run/modify/{{ run.id }}/">Edit</a>
+            </td>
+            <td class="col-1">
+                <a href="/run/delete/{{ run.id }}/">Delete</a>
+            </td>
+            <td class="col-1">
+                <a href="/run/reserve/{{ run.id }}/">Enroll</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<!-- table -->
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Pink Pig</span>
+    </div>
+</footer>
+<!-- Footer -->
+</body>
+</html>
