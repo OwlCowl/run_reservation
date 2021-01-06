@@ -37,7 +37,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="/">List of all runs<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/run/add/">Add your run</a>
+            <a class="nav-item nav-link" href="/run/add/">Add new run</a>
         </div>
     </div>
 </nav>
@@ -84,14 +84,14 @@
             <td class="col-2">
                 <a href="/run/{{ run.id }}/">{{ run.term }}</a>
             </td>
+{#            <td class="col-1">#}
+{#                <a href="/run/modify/{{ run.id }}/">Edit</a>#}
+{#            </td>#}
+{#            <td class="col-1">#}
+{#                <a href="/run/delete/{{ run.id }}/">Delete</a>#}
+{#            </td>#}
             <td class="col-1">
-                <a href="/run/modify/{{ run.id }}/">Edit</a>
-            </td>
-            <td class="col-1">
-                <a href="/run/delete/{{ run.id }}/">Delete</a>
-            </td>
-            <td class="col-1">
-                <a href="/run/reserve/{{ run.id }}/">Enroll</a>
+                <a href="/run/enroll/{{ run.id }}/">Enroll</a>
             </td>
         </tr>
     {% endfor %}

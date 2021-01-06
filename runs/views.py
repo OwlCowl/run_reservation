@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from runs.models import Main
+from runs.models import Main, RunEnroll
 
 # Create your views here.
 class RunsListView(View):
@@ -47,21 +47,30 @@ class RunEdit(View):
         Main.objects.create(name=name,city=city,distance=distance, registration=registration, term=term)
         return redirect("run_list")
 
-class RunEnroll(View):
+
+'''
+Here user will enroll to run and after successful registration return to list of his own runs
+pick up user runs by id
+relation many to one
+
+'''
+class RunEnrollView(View):
     def get(self, request, run_id):
         specified_run = Main.objects.get(id=run_id)
         return render(request, "enroll_form.html")
 
     def post(self, request, run_id):
-        name = request.POST.get("name")
-        surname = request.POST.get("surname")
-        date_of_birth= request.POST.get("date_of_birth")
-        distance= request.POST.get("distance")
-        team= request.POST.get("team")
-        t_shirt= request.POST.get("t-shirt")
-        Enroll.objects.create(name=name, surname=surname,date_of_birth=date_of_birth, distance=distance, team=team,t_shirt=t_shirt)
+        specified_run = Main.objects.get(id=run_id)
+        name_pr = request.POST.get("name_pr")
+        surname_pr = request.POST.get("surname_pr")
+        date_of_birth_pr= request.POST.get("date_of_birth_pr")
+        email = request.POST.get("name_pr")
+        gender = request.POST.get("surname_pr")
+        number= request.POST.get("date_of_birth_pr")
+        RunEnroll.objects.create(run_enroll_id = specified_run, name_pr=name_pr, surname_pr=surname_pr,date_of_birth_pr=date_of_birth_pr,
+                                 email=email, gender=gender,number=number)
 
-        return render(request, "finish_enroll.html")
+        return redirect("run_list")
 
 
 

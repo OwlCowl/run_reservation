@@ -58,19 +58,9 @@
             {% endif %}
         </p>
         <p>
-            <a href="/run/modify/{{ run.id }}/">Edit</a>
-            <a href="/run/delete/{{ run.id }}/">Delete</a>
-            <a href="/run/reserve/{{ run.id }}/">Book</a>
+            <a href="/run/delete/{{ run.id }}/">Ask question</a>
+            <a href="/run/enroll/{{ run.id }}/">Enroll</a>
         </p>
-        <h4>Reservation</h4>
-        <ul class="list-group">
-            {% for reservation in reservations %}
-                <li class="list-group-item">
-                    <h5>{{ reservation.date }}</h5>
-                    <p>{{ reservation.comment }}</p>
-                </li>
-            {% endfor %}
-        </ul>
     </div>
 </div>
 <!-- Run Details -->

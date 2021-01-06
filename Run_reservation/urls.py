@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from runs.views import RunsListView, AddRunView, RunDetailsView
+from runs.views import RunsListView, AddRunView, RunDetailsView, RunEnrollView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('run/add/', AddRunView.as_view(), name="add_run"),
     path('', RunsListView.as_view(), name="run_list"),
-    path('details/<int:run_id>/', RunDetailsView.as_view(), name = "run_details")
+    path('details/<int:run_id>/', RunDetailsView.as_view(), name = "run_details"),
+    path('run/enroll/<int:run_id>/', RunEnrollView.as_view(), name = "run_enroll"),
 
 ]
