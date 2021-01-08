@@ -48,10 +48,18 @@ class RunEdit(View):
         return redirect("run_list")
 
 
+class RunAskQuestionView(View):
+    def get(self, request):
+        return render(request, 'question_form.html')
+
+
+
+
 '''
 Here user will enroll to run and after successful registration return to list of his own runs
 pick up user runs by id
 relation many to one
+table has data of enrolled people
 
 '''
 class RunEnrollView(View):
@@ -64,14 +72,21 @@ class RunEnrollView(View):
         name_pr = request.POST.get("name_pr")
         surname_pr = request.POST.get("surname_pr")
         date_of_birth_pr= request.POST.get("date_of_birth_pr")
-        email = request.POST.get("name_pr")
-        gender = request.POST.get("surname_pr")
-        number= request.POST.get("date_of_birth_pr")
+        email = request.POST.get("email")
+        gender = request.POST.get("gender")
+        number= request.POST.get("number")
         RunEnroll.objects.create(run_enroll_id = specified_run, name_pr=name_pr, surname_pr=surname_pr,date_of_birth_pr=date_of_birth_pr,
                                  email=email, gender=gender,number=number)
 
         return redirect("run_list")
 
+'''
+here should be data of enrolled person runs'''
+class UserDataView(View):
+
+    def get(self, request):
+        run_list= RunEnroll.objects.all()
+        return render(request, 'user_account.html', {'run_list':run_list})
 
 
 

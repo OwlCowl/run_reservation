@@ -57,12 +57,17 @@
                 <span style="color:red;">&#9746;</span>
             {% endif %}
         </p>
-        <p>
-            <a href="/run/delete/{{ run.id }}/">Ask question</a>
-            <a href="/run/enroll/{{ run.id }}/">Enroll</a>
-        </p>
+
+        <label for="question"> Question form:
+            <textarea id="msg" name="user_message" class="form-control"></textarea>
+        </label>
+
+        <p><a href="/run/enroll/{{ run.id }}/">Enroll</a></p>
+
+
     </div>
 </div>
+
 <!-- Run Details -->
 
 

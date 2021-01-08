@@ -48,3 +48,9 @@ class RunEnroll(models.Model):
         return f"/runenroll/{self.id}"
 
 
+class UserData(models.Model):
+    run_name = models.CharField(max_length=25)
+    run_city = models.CharField(max_length=25)
+    run_date = models.DateField()
+    run_distance = models.DecimalField(max_digits=5, decimal_places=2)
+    payment = models.BooleanField(default = False)
