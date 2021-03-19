@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'runs.apps.RunsConfig',
+    'runs',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'yana',
         'PASSWORD': '1111',
-         'HOST': '127.0.0.1'}
+        'HOST': '127.0.0.1'}
     }
 
 

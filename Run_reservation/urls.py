@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from runs.views import RunsListView, AddRunView, RunDetailsView, RegistrationView, UserPrivateDataView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name = 'admin-panel'),
+    path('run/add/', AddRunView.as_view(), name="add_run"),
+    path('', RunsListView.as_view(), name="run_list"),
+    path('details/<int:run_id>/', RunDetailsView.as_view(), name = "run_details"),
+    path('run/enroll/<int:run_id>/', RegistrationView.as_view(), name = "run_enroll"),
+    path('account/', UserPrivateDataView.as_view(), name='user_account'),
+
 ]
