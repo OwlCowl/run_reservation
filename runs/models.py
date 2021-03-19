@@ -48,19 +48,18 @@ class RunReservation(models.Model):
     comment = models.TextField(null=True)
 
 
-# ''' Payment - Base with payment info'''
-class Payment(models.Model):
-    status = models.BooleanField(default=False)
-    # run_name = models.ForeignKey(AllRuns, on_delete=models.CASCADE)
-
-
 # ''' User private account base: all about his booked runs '''
 class UserPrivateData(models.Model):
     run_name = models.CharField(max_length=25)
     run_city = models.CharField(max_length=25)
     run_date = models.DateField()
     run_distance = models.DecimalField(max_digits=5, decimal_places=2)
-    # payment = models.ForeignKey(Payment, on_delete = models.CASCADE)
+
+# ''' Payment - Base with payment info'''
+class Payment(models.Model):
+    status = models.BooleanField(default=False)
+    payment = models.ForeignKey(UserPrivateData, on_delete = models.CASCADE)
+
 
 # ''' AllRuns - All accessable runs'''
 # ''' UserPrivateData - User private account base: all about his booked runs'''
