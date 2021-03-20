@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=25)),
                 ('city', models.CharField(max_length=25)),
                 ('distance', models.DecimalField(decimal_places=2, max_digits=5)),
-                ('registration', models.BooleanField(default=True)),
+                ('active_registration', models.BooleanField(default=True)),
                 ('term', models.DateField()),
             ],
         ),

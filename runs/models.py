@@ -7,7 +7,7 @@ class AllRuns(models.Model):
     name = models.CharField(max_length=25)
     city = models.CharField(max_length=25)
     distance = models.DecimalField(max_digits=5, decimal_places=2)
-    registration = models.BooleanField(default=True)
+    active_registration = models.BooleanField(default=True)
     term = models.DateField()
 
 
@@ -33,7 +33,7 @@ class Registration(models.Model):
     gender = models.CharField(max_length=25)
     phone = models.IntegerField()
     payment = models.BooleanField(default=False)
-    participants = models.ManyToManyField(AllRuns)
+    enrolledPeople = models.ManyToManyField(AllRuns)
 
 
     def get_detail_url(self):
@@ -54,11 +54,12 @@ class UserPrivateData(models.Model):
     run_city = models.CharField(max_length=25)
     run_date = models.DateField()
     run_distance = models.DecimalField(max_digits=5, decimal_places=2)
+    run_payment = models.BooleanField(default = False)
 
 # ''' Payment - Base with payment info'''
 class Payment(models.Model):
     status = models.BooleanField(default=False)
-    payment = models.ForeignKey(UserPrivateData, on_delete = models.CASCADE)
+    payment = models.ForeignKey(UserPrivateData, on_delete = models.CASCADE, default=False)
 
 
 # ''' AllRuns - All accessable runs'''
@@ -67,8 +68,7 @@ class Payment(models.Model):
 # ''' Registration - Base with info about participants and payments'''
 # ''' Payment - Base with payment info'''
 ''' Participants where we store all users who enrolled'''
-''' start_number '''
-
+''' Contacts '''
 
 
 

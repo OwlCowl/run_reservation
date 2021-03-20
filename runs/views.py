@@ -3,6 +3,8 @@ from django.views import View
 from runs.models import AllRuns, Registration
 
 # Create your views here.
+
+''' Here will be landing page view with all possible runs'''
 class RunsListView(View):
     def get(self, request):
         runs = AllRuns.objects.all()
@@ -16,9 +18,9 @@ class AddRunView(View):
         name = request.POST.get("name")
         city = request.POST.get("city")
         distance = request.POST.get("distance")
-        registration = request.POST.get("registration")
+        active_registration = request.POST.get("registration")
         term = request.POST.get("term")
-        AllRuns.objects.create(name=name,city=city,distance=distance, registration=registration, term=term)
+        AllRuns.objects.create(name=name,city=city,distance=distance, active_registration=registration, term=term)
         return redirect("run_list")
 
 class RunDetailsView(View):
@@ -42,15 +44,11 @@ class RunEdit(View):
         name = request.POST.get("name")
         city = request.POST.get("city")
         distance = request.POST.get("distance")
-        registration = request.POST.get("registration")
+        active_registration = request.POST.get("registration")
         term = request.POST.get("term")
-        AllRuns.objects.create(name=name,city=city,distance=distance, registration=registration, term=term)
+        AllRuns.objects.create(name=name,city=city,distance=distance, active_registration=registration, term=term)
         return redirect("run_list")
 
-
-class RunAskQuestionView(View):
-    def get(self, request):
-        return render(request, 'question_form.html')
 
 
 
