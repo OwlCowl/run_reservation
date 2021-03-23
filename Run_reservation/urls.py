@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from runs.views import RunsListView, AddRunView, RunDetailsView, RegistrationView, UserPrivateDataView
+from runs.views import RunsListView, AddRunView, RunDetailsView, RegistrationView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = 'admin-panel'),
-    path('run/add/', AddRunView.as_view(), name="add_run"),
     path('', RunsListView.as_view(), name="run_list"),
+    path('add_run/', AddRunView.as_view(), name="add_run"),
     path('details/<int:run_id>/', RunDetailsView.as_view(), name = "run_details"),
-    path('run/enroll/<int:run_id>/', RegistrationView.as_view(), name = "run_enroll"),
-    path('account/', UserPrivateDataView.as_view(), name='user_account'),
+    path('registration/<int:run_id>/', RegistrationView.as_view(), name = "registration"),
+    # path('account/', UserPrivateDataView.as_view(), name='user_account'),
 
 ]

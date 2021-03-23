@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include '/Users/yana/Documents/GitHub/Run_reservation/templates/includes/header.html' %}
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Runs</a>
+            <a class="nav-item nav-link" href="/login/">Log in</a>
+            <a class="nav-item nav-link" href="/registration/">Registration</a>
+        </div>
+    </div>
+</nav>
+<!-- Nav -->
+
+<!-- Form -->
+<div class="card">
+    <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+
+
+            <div class="form-group">
+                <label for="Run_name">Name of run</label>
+                <input type="text" class="form-control" name="name">
+                <small id="run_name" class="form-text text-muted">The name should be unique</small>
+            </div>
+
+            <div class="form-group">
+                <label for="City">City</label>
+                <input type="text" class="form-control" name="city">
+            </div>
+            <div class="form-group">
+                <label for="Distance">Distance</label>
+                <input type="text" class="form-control" name="distance">
+            </div>
+            <div class="form-group">
+                <label for="Term">Term</label>
+                <input type="date" class="form-control" name="run_date">
+            </div>
+
+
+            <div class="form-select">
+                <label for="active_registration">
+                    <select name='registration'>
+                        <option value="True">Available</option>
+                        <option value="False">Not available</option>
+                    </select>
+                </label>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Add run</button>
+        </form>
+    </div>
+</div>
+<!-- Form -->
+
+<!-- Footer -->
+{% include '/Users/yana/Documents/GitHub/Run_reservation/templates/includes/footer.html' %}
+<!-- Footer -->
+</body>
+</html>

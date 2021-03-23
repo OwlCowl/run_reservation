@@ -1,56 +1,50 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from runs.models import AllRuns, Registration
+from runs.models import RunDetails, RunType, Registration
 
 # Create your views here.
 
 ''' Here will be landing page view with all possible runs'''
 class RunsListView(View):
     def get(self, request):
-        runs = AllRuns.objects.all()
+        runs = RunDetails.objects.all()
         return render(request, 'landing.html', {'runs_list':runs})
 
+
+''' Here should add user rights that only admin could see that page and add runs'''
 class AddRunView(View):
     def get(self, request):
-        return render(request, 'add_run_view.html')
+        return render(request, 'add_runs.html')
 
-    def post(selfself, request):
-        name = request.POST.get("name")
-        city = request.POST.get("city")
-        distance = request.POST.get("distance")
+    def post(self, request):
+        run_name = request.POST.get("name")
+        run_city = request.POST.get("city")
+        run_distance = request.POST.get("distance")
+        run_date = request.POST.get("run_date")
         active_registration = request.POST.get("registration")
-        term = request.POST.get("term")
-        AllRuns.objects.create(name=name,city=city,distance=distance, active_registration=registration, term=term)
+        if int(run_distance) >= 100:
+            rt = RunType(distance=int(run_distance), type = 'ultra')
+            rt.save()
+
+        if int(run_distance) == 42:
+            rt = RunType(distance=int(run_distance), type='marathon')
+            rt.save()
+
+        if int(run_distance) == 21:
+            rt = RunType(distance=int(run_distance), type='half-marathon')
+            rt.save()
+
+            rd = RunDetails(run_name=run_name,run_city=run_city,
+                                  run_distance=run_distance, active_registration=active_registration,
+                                  run_type = rt, run_date=run_date)
+            rd.save()
         return redirect("run_list")
+
 
 class RunDetailsView(View):
     def get(self, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
-        return render(request, "details_about_run.html", {'run': specified_run})
-
-class RunDelete(View):
-    def get(selfself, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
-        specified_run.delete()
-        return redirect("run_list")
-
-class RunEdit(View):
-    def get(self, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
-        return render(request, "modify_run.html")
-
-    def post(self, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
-        name = request.POST.get("name")
-        city = request.POST.get("city")
-        distance = request.POST.get("distance")
-        active_registration = request.POST.get("registration")
-        term = request.POST.get("term")
-        AllRuns.objects.create(name=name,city=city,distance=distance, active_registration=registration, term=term)
-        return redirect("run_list")
-
-
-
+        detailsRun = RunDetails.objects.get(id=run_id)
+        return render(request, "details_about_run.html", {'run': detailsRun})
 
 
 '''
@@ -62,29 +56,35 @@ table has data of enrolled people
 '''
 class RegistrationView(View):
     def get(self, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
+        specified_run = RunDetails.objects.get(id=run_id)
         return render(request, "enroll_form.html")
 
     def post(self, request, run_id):
-        specified_run = AllRuns.objects.get(id=run_id)
-        name_pr = request.POST.get("name_pr")
-        surname_pr = request.POST.get("surname_pr")
-        date_of_birth= request.POST.get("date_of_birth")
-        email = request.POST.get("email")
-        gender = request.POST.get("gender")
-        phone= request.POST.get("phone")
-        Registration.objects.create(run_enroll_id = specified_run, name_pr=name_pr, surname_pr=surname_pr,date_of_birth=date_of_birth,
-                                 email=email, gender=gender,phone=phone)
+        specified_run = RunDetails.objects.get(id=run_id)
+        runner_name = request.POST.get("runner_name")
+        runner_surname = request.POST.get("runner_surname")
+        runner_date_of_birth= request.POST.get("runner_date_of_birth")
+        runner_email = request.POST.get("runner_email")
+        runner_phone = request.POST.get("runner_phone")
+
+        # registration_payment= request.POST.get("registration_payment")
+        Registration.objects.create(runner_name=runner_name, runner_surname=runner_surname,runner_date_of_birth=runner_date_of_birth,
+                                 runner_email=runner_email, runner_phone=runner_phone)
+
+
+
 
         return redirect("run_list")
 
-'''
-here should be data of enrolled person runs'''
-class UserPrivateDataView(View):
 
-    def get(self, request):
-        run_list= Registration.objects.all()
-        return render(request, 'user_account.html', {'run_list':run_list})
-
-
-
+#
+# '''
+# # here should be data of enrolled person runs'''
+# class UserPrivateDataView(View):
+#
+#     def get(self, request):
+#         run_list= Registration.objects.all()
+#         return render(request, 'user_account.html', {'run_list':run_list})
+#
+#
+#
