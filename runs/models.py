@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 # Create your models here.
 
 
@@ -25,8 +26,8 @@ class RunDetails(models.Model):
 
 
 ''' Registration - Base with info about participants and payments.
-    Separate registrration form. User wouldn't be required to create an account to be able to enroll to run.
-    ManyToMany relation to RunDetails'''
+    Separate registration form. User wouldn't be required to create an account to be able to enroll to run.
+    OneToMany relation to RunDetails - means one run could have many registrations'''
 class Registration(models.Model):
     runner_name = models.CharField(max_length=25)
     runner_surname = models.CharField(max_length=25)
@@ -34,12 +35,14 @@ class Registration(models.Model):
     runner_email = models.CharField(max_length=25)
     runner_phone = models.IntegerField()
     registration_payment = models.BooleanField(default=False)
-    run_connection = models.ManyToManyField(RunDetails)
+    run_connection = models.ForeignKey(RunDetails, on_delete = models.CASCADE, default=False)
 
     def get_detail_url(self):
         return f"/Registration/{self.id}"
 
-''' User private account base: all about user runs, payments '''
+''' User private account base: all about user runs, payments.
+    user may have many registrations, and user may have many runs
+                                                                '''
 class UserPrivateData(models.Model):
     user_data = models.ForeignKey(Registration, on_delete = models.CASCADE, default=False)
     user_runs = models.ForeignKey(RunDetails, on_delete = models.CASCADE, default=False)
@@ -48,9 +51,7 @@ class UserPrivateData(models.Model):
 
 class Contacts(models.Model):
     runner = models.ForeignKey(UserPrivateData, on_delete = models.CASCADE)
-    EC = models.CharField(max_length=20)
-    email = models.CharField(max_length=20)
-    telephone = models.IntegerField()
+
 
 
 

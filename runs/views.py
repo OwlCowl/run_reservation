@@ -11,6 +11,8 @@ class RunsListView(View):
         return render(request, 'landing.html', {'runs_list':runs})
 
 
+
+
 ''' Here should add user rights that only admin could see that page and add runs'''
 class AddRunView(View):
     def get(self, request):
@@ -77,14 +79,25 @@ class RegistrationView(View):
         return redirect("run_list")
 
 
-#
-# '''
-# # here should be data of enrolled person runs'''
-# class UserPrivateDataView(View):
-#
-#     def get(self, request):
-#         run_list= Registration.objects.all()
-#         return render(request, 'user_account.html', {'run_list':run_list})
-#
-#
-#
+
+'''
+# here should be data of enrolled person runs
+Here you pick up user by id and may get his personal data + from Registration + from RunsDetails'''
+class UserPrivateDataView(View):
+
+    def get(self, request, user_id):
+        run_list= Registration.objects.all()
+        user_enroll = run_list.get(pk=user_id)
+
+        return render(request, 'user_account.html', {'run_list':run_list})
+
+
+
+class ContactsView(View):
+    def get(self, request):
+        contactsList = Registration.objects.all()
+        return render(request, 'dropmsg.html')
+
+
+
+# class ContactUsView(View)
