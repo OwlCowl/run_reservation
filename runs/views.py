@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from runs.models import RunDetails, RunType, Registration
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -12,9 +13,10 @@ class RunsListView(View):
 
 
 
-
 ''' Here should add user rights that only admin could see that page and add runs'''
-class AddRunView(View):
+class AddRunView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     def get(self, request):
         return render(request, 'add_runs.html')
 
@@ -99,5 +101,3 @@ class ContactsView(View):
         return render(request, 'dropmsg.html')
 
 
-
-# class ContactUsView(View)
