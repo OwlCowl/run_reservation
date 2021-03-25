@@ -2,8 +2,24 @@ from django.shortcuts import render, redirect
 from django.views import View
 from runs.models import RunDetails, RunType, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 # Create your views here.
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, "loginpage.html")
+
+    def post(self, request):
+        username = request.POST.get('username')
+        useremail = request.POST.get('useremail')
+        userpass = request.POST.get('password')
+        adminUser = User.objects.create_superuser('yana',
+                                             '2947468@gmail.com', '123')
+        participant = User.objects.create_superuser('alex',
+                                             '123456@gmail.com', '123')
+
+
 
 ''' Here will be landing page view with all possible runs'''
 class RunsListView(View):
