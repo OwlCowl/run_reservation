@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include '/Users/yana/Documents/GitHub/Run_reservation/templates/includes/header.html' %}
+
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active">Run details</a>
+            <a class="nav-item nav-link" href="/">Runs</a>
+            <a class="nav-item nav-link" href="/login/">Log in</a>
+        </div>
+    </div>
+</nav>
+<!-- Nav -->
+
+<!-- Run Details -->
+<div class="card">
+    <div class="card-body">
+    <form>
+     {% for contact in contactsList %}
+        {{ contact.id }} {{ contact.email }} {{ contact.telephone }}
+     {% endfor %}
+    </form>
+
+    </div>
+</div>
+
+<!-- Run Details -->
+
+
+<!-- Footer -->
+{% include '/Users/yana/Documents/GitHub/Run_reservation/templates/includes/footer.html' %}
+<!-- Footer -->
+</body>
+</html>
