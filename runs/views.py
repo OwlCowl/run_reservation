@@ -151,7 +151,7 @@ class UserPrivateDataView(View):
 
     def get(self, request, user_id):
         run_list= Registration.objects.all()
-        user_enroll = run_list.get(pk=user_id)
+        # user_enroll = run_list.get(pk=user_id)
 
         return render(request, 'user_account.html', {'run_list':run_list})
 

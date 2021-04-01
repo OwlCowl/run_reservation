@@ -31,7 +31,7 @@ urlpatterns = [
     path("register/", views.register_request, name="register"),
     path("login/", views.login_request, name="login"),
     path("logout/", views.logout_request, name= "logout"),
-    path('account/', UserPrivateDataView.as_view(), name='user_account'),
+    path('account/<int:user_id>/', UserPrivateDataView.as_view(), name='user_account'),
 
 ]
 
