@@ -137,7 +137,7 @@ class RegistrationView(View):
         Registration.objects.create(runner_name=runner_name, runner_surname=runner_surname,runner_date_of_birth=runner_date_of_birth,
                                  runner_email=runner_email, runner_phone=runner_phone)
 
-
+''
 
 
         return redirect("run_list")
