@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -88,10 +89,10 @@ class AddRunView(View):
             rt = RunType(distance=int(run_distance), type='half-marathon')
             rt.save()
 
-            rd = RunDetails(run_name=run_name,run_city=run_city,
+        rd = RunDetails(run_name=run_name,run_city=run_city,
                                   run_distance=run_distance, active_registration=active_registration,
                                   run_type = rt, run_date=run_date)
-            rd.save()
+        rd.save()
 
         return redirect("run_list")
 
@@ -114,17 +115,17 @@ class RegistrationView(View):
         specified_run = RunDetails.objects.get(id=run_id)
         return render(request, "enroll_form.html")
 
+
     def post(self, request, run_id):
-        specified_run = RunDetails.objects.get(id=run_id)
         runner_name = request.POST.get("runner_name")
         runner_surname = request.POST.get("runner_surname")
         runner_date_of_birth= request.POST.get("runner_date_of_birth")
         runner_email = request.POST.get("runner_email")
         runner_phone = request.POST.get("runner_phone")
+        run_connection = RunDetails.objects.get(id=run_id)
 
-        # registration_payment= request.POST.get("registration_payment")
         Registration.objects.create(runner_name=runner_name, runner_surname=runner_surname,runner_date_of_birth=runner_date_of_birth,
-                                 runner_email=runner_email, runner_phone=runner_phone)
+                                 runner_email=runner_email, runner_phone=runner_phone, run_connection = run_connection)
 
         return redirect("run_list")
 
@@ -145,7 +146,11 @@ class UserPrivateDataView(View):
 
 class ContactsView(View):
     def get(self, request):
-        contactsList = Registration.objects.all()
         return render(request, 'dropmsg.html')
+
+    def post(self, request):
+        return render(request, 'thank_you.html')
+
+
 
 
