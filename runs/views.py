@@ -37,7 +37,9 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("user_account")
+                # return redirect("user_account")
+                return redirect("run_list")
+
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -52,20 +54,6 @@ def logout_request(request):
 
 
 
-# class LoginView(View):
-#     def get(self, request):
-#         return render(request, "loginpage.html")
-#
-#     def post(self, request):
-#         username = request.POST.get('username')
-#         useremail = request.POST.get('useremail')
-#         userpass = request.POST.get('password')
-#         adminUser = User.objects.create_superuser('yana',
-#                                              '2947468@gmail.com', '123')
-#         participant = User.objects.create_superuser('alex',
-#                                              '123456@gmail.com', '123')
-
-
 
 ''' Here will be landing page view with all possible runs'''
 class RunsListView(View):
@@ -76,9 +64,9 @@ class RunsListView(View):
 
 
 ''' Here should add user rights that only admin could see that page and add runs'''
-class AddRunView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
+class AddRunView(View):
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
     def get(self, request):
         return render(request, 'add_runs.html')
 
@@ -104,6 +92,7 @@ class AddRunView(LoginRequiredMixin, View):
                                   run_distance=run_distance, active_registration=active_registration,
                                   run_type = rt, run_date=run_date)
             rd.save()
+
         return redirect("run_list")
 
 
@@ -136,9 +125,6 @@ class RegistrationView(View):
         # registration_payment= request.POST.get("registration_payment")
         Registration.objects.create(runner_name=runner_name, runner_surname=runner_surname,runner_date_of_birth=runner_date_of_birth,
                                  runner_email=runner_email, runner_phone=runner_phone)
-
-''
-
 
         return redirect("run_list")
 

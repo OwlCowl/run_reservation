@@ -8,8 +8,14 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="/">Runs<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login/">Log in</a>
-            <a class="nav-item nav-link" href="/add_run/">Add Run</a>
+            {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="/logout/">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" href="/login/">Login</a>
+            {% endif %}
+            {% if user.is_superuser %}
+                <a class="nav-item nav-link" href="/add_run/">Add Run</a>
+            {% endif %}
             <a class="nav-item nav-link" href="/contacts/">Contact Us</a>
         </div>
     </div>
